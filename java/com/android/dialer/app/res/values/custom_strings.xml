@@ -42,4 +42,12 @@
     <string name="call_recording_format">Audio format</string>
     <string name="wb_amr_format" translatable="false">AMR-WB</string>
     <string name="aac_format" translatable="false">AAC</string>
+    <string name="other_settings_label">Other settings</string>
+
+    <!-- Dialer postcall -->
+    <string name="enable_post_call_title">Post call snackbar</string>
+    <string name="enable_post_call_summary">Enable post call notifications at the bottom of screen</string>
+
+    <string name="auto_call_recording_title">Auto call recording</string>
+    <string name="auto_call_recording_key" translatable="false">auto_call_recording</string>
 </resources>

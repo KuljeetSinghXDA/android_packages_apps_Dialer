@@ -187,12 +187,10 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
       target.add(assistedDialingSettingsHeader);
     }
 
-    if (showMoreOptions()) {
-      Header moreSettingsHeader = new Header();
-      moreSettingsHeader.titleRes = R.string.more_settings_titile;
-      moreSettingsHeader.id = R.id.settings_header_more;
-      target.add(moreSettingsHeader);
-    }
+    Header OtherSettingsHeader = new Header();
+    OtherSettingsHeader.titleRes = R.string.other_settings_label;
+    OtherSettingsHeader.fragment = OtherSettingsFragment.class.getName();
+    target.add(OtherSettingsHeader);
 
     if (showAbout()) {
       Header aboutPhoneHeader = new Header();
