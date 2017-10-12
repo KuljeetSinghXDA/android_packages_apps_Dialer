@@ -71,6 +71,7 @@ LOCAL_FULL_LIBS_MANIFEST_FILES := \
 
 LOCAL_SRC_FILES := $(call all-java-files-under, $(BASE_DIR))
 LOCAL_SRC_FILES += $(call all-proto-files-under, $(BASE_DIR))
+LOCAL_SRC_FILES += $(call all-Iaidl-files-under, $(SRC_DIRS))
 LOCAL_SRC_FILES := $(filter-out $(EXCLUDE_FILES),$(LOCAL_SRC_FILES))
 
 LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)
@@ -82,6 +83,8 @@ EXCLUDE_EXTRA_PACKAGES := \
 	com.android.dialer.binary.google \
 	com.android.incallui.calllocation.impl \
 	com.android.incallui.maps.impl \
+
+LOCAL_AIDL_INCLUDES := $(LOCAL_PATH)/java
 
 # We specify each package explicitly to glob resource files.
 include ${LOCAL_PATH}/packages.mk
@@ -119,6 +122,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	dialer-zxing-target \
 	jsr305 \
 	libbackup \
+	legacy-test \
 	libphonenumber \
 	volley \
 
@@ -169,11 +173,11 @@ endif
 
 # End Bug: 37077388
 
-LOCAL_SDK_VERSION := system_current
 LOCAL_MODULE_TAGS := optional
 LOCAL_PACKAGE_NAME := Dialer
 LOCAL_CERTIFICATE := shared
 LOCAL_PRIVILEGED_MODULE := true
+LOCAL_PRIVATE_PLATFORM_APIS := true
 LOCAL_USE_AAPT2 := true
 
 # b/37483961 - Jack Not Compiling Dagger Class Properly
@@ -424,4 +428,3 @@ LOCAL_UNINSTALLABLE_MODULE := true
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-
