@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -127,6 +128,13 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
 
     TelephonyManager telephonyManager =
         (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+    if (isSpeakerAllowed()) {
+        final Header speakerSettingsHeader = new Header();
+        speakerSettingsHeader.titleRes = R.string.speaker_settings_label;
+        speakerSettingsHeader.fragment = SpeakerSettingsFragment.class.getName();
+        target.add(speakerSettingsHeader);
+    }
 
     // "Call Settings" (full settings) is shown if the current user is primary user and there
     // is only one SIM. Before N, "Calling accounts" setting is shown if the current user is
@@ -349,5 +357,13 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
   private boolean showMoreOptions() {
     Intent intent = getMoreOptionsIntent();
     return intent.resolveActivity(getPackageManager()) != null;
+  }
+  /**
+  * @return Whether proximity speakerphone is allowed
+  */
+  private boolean isSpeakerAllowed() {
+    PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+    return pm.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)
+    && getResources().getBoolean(R.bool.config_enabled_speakerprox);
   }
 }
